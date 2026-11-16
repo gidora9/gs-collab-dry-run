@@ -1,0 +1,34 @@
+# Minimal CI for throwaway / dry-run repos and Actions-budgeted gs-mono.
+# Prefer public repos for dry-run so standard GitHub-hosted runners are free:
+# https://docs.github.com/en/actions/concepts/billing-and-usage
+# On private gs-mono: ~$3.70 left in the $20 cap until the ~Dec 1 UTC cycle reset
+# (~460 Linux min at $0.008/min; avoid macOS runners = 10x cost).
+# Offload frontend PR build previews to Vercel Hobby ($0) instead of Actions.
+name: ci
+on:
+  pull_request:
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - '.github/ISSUE_TEMPLATE/**'
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - '.github/ISSUE_TEMPLATE/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sanity
+        run: |
+          test -f README.md
+          test -f AGENTS.md
+          echo "ci ok"

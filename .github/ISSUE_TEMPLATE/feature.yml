@@ -1,0 +1,48 @@
+name: Feature
+description: Ship a user-visible slice for GameScrobbler / Divan hackathon
+title: "[feat] "
+labels: ["triage"]
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome
+      description: One sentence — what a judge/user can see or do when this is done.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Checklist the PR must satisfy.
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent policy
+      options:
+        - agent-ready (agent may open draft PR)
+        - human-only
+    validations:
+      required: true
+  - type: dropdown
+    id: owner
+    attributes:
+      label: Human owner
+      options:
+        - Ebrahim
+        - Mehrad
+        - Farzad
+    validations:
+      required: true
+  - type: input
+    id: demo
+    attributes:
+      label: Demo impact
+      description: How this shows up in the final demo (or "none").
+    validations:
+      required: true
